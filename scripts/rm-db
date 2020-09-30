@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+docker-compose down
+docker-compose up -d --no-deps db web
+
+until docker-compose exec -T web bash -c 'pg_isready -U "$POSTGRES_USER" --host "$DB_HOST"'; do
+  >&2 echo "Postgres is unavailable - sleeping"
+  sleep 1
+done
+
+docker-compose exec web ./manage.py migrate
+echo -e "\e[32mOK!\e[0m"

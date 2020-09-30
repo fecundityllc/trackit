@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+set -e
+
+if [ -z "$COMPOSE_FILE" ]
+then
+    COMPOSE_FILE=docker-compose.staging.yml
+fi
+
+git checkout staging
+git fetch origin
+git rebase origin/master
+
+./scripts/lib/git-crypt unlock unation-api-sym-key
+cp .env.staging .env
+
+docker-compose -f $COMPOSE_FILE build > /dev/null
+docker-compose -f $COMPOSE_FILE up -d --remove-orphans
+
+docker-compose -f $COMPOSE_FILE exec -T -e DISABLE_ROUTER=1 web ./manage.py migrate
+docker-compose -f $COMPOSE_FILE exec -T web ./manage.py collectstatic --noinput
+
+docker-compose -f $COMPOSE_FILE restart nginx

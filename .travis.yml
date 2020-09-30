@@ -1,0 +1,54 @@
+dist: bionic
+
+services:
+  - postgresql
+ 
+addons:
+  postgresql: '9.5'
+  apt:
+    packages:
+      - postgresql-9.5-postgis-2.5
+      - binutils
+      - libproj-dev
+      - gdal-bin
+
+before_script:
+  - psql -U postgres -c "create extension postgis"
+  - psql -U postgres -c "create user read_user with password 'test'"
+
+branches:
+  only:
+    - "master"
+    - "production"
+    - "staging"
+
+language: python
+python:
+  - "3.8"
+
+install:
+  - if [ "$TRAVIS_BRANCH" = "master" ]; then pip install -r requirements/dev.txt; fi
+  - if [ "$TRAVIS_BRANCH" = "master" ]; then pip install coveralls; fi
+
+script:
+  - if [ "$TRAVIS_BRANCH" = "master" ]; then ./scripts/lib/run-ci; fi
+
+after_success:
+  - if [ "$TRAVIS_BRANCH" = "master" ]; then coveralls; fi
+
+deploy:
+  - provider: script
+    script: bash scripts/lib/travis-deploy.sh
+    on:
+      branch: "production"
+  - provider: script
+    script: bash scripts/lib/travis-uat-deploy.sh
+    on:
+      branch: "staging"
+
+notifications:
+  email:
+    recipients:
+      - umair@fecundity.io
+    on_success: always
+    on_failure: always

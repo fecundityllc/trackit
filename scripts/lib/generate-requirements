@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+ARG=${1-nul}
+
+function update_locked {
+    if [ $ARG == '-U' ]
+    then
+       pip-compile -U -o requirements/$1.txt requirements/$1.in
+    else
+       pip-compile -o requirements/$1.txt requirements/$1.in
+    fi
+}
+
+update_locked dev
+update_locked prod

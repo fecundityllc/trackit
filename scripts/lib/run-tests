@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+DISABLE_ROUTER=1 ./manage.py test --keepdb "${@:1}"

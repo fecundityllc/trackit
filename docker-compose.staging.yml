@@ -1,0 +1,25 @@
+version: '3.4'
+
+services:
+  db:
+    image: postgis/postgis:9.5-3.0-alpine
+    env_file:
+      ./.env
+
+  web:
+    build:
+      context: .
+      target: prod
+    volumes:
+      - static_volume:/opt/fecundityllc/static
+
+    env_file:
+      ./.env
+
+    container_name: trackit_prod
+    command: ./scripts/lib/run-with-gunicorn 2
+    depends_on:
+      - db
+
+volumes:
+  static_volume:

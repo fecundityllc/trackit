@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -e
+
+docker-compose build > /dev/null
+docker-compose up -d --remove-orphans
+
+docker-compose exec -T -e DISABLE_ROUTER=1 web ./manage.py migrate
+
+echo "You can access web app at http://localhost:8000."

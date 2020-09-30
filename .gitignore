@@ -1,0 +1,9 @@
+*.swp
+*.pyc
+.coverage
+.DS_Store
+keys.ini
+*.~lock*
+db.sqlite3
+.env
+.idea

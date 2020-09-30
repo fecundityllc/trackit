@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+echo -e "\e[32mGenerating...\e[0m"
+docker-compose run --no-deps --rm web ./scripts/lib/generate-requirements
+echo -e "\e[32mChanging ownership of req files. You'll need sudo access...\e[0m"
+chmod -R 666 requirements/*
+echo -e "\e[32mBuilding...\e[0m"
+docker-compose build web
+echo -e "\e[32mOK!\e[0m"

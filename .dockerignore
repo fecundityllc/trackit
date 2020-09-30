@@ -1,0 +1,5 @@
+*
+!scripts
+!requirements/dev.txt
+!requirements/prod.txt
+!version.py

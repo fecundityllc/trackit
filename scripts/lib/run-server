@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -e
+
+until pg_isready -U "$POSTGRES_USER" --host "$POSTGRES_HOST"; do
+  >&2 echo "Postgres is unavailable - sleeping"
+  sleep 1
+done
+
+./manage.py runserver 0.0.0.0:8000

@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -e
+
+./scripts/lib/run-linters
+./scripts/lib/run-tests-with-coverage
