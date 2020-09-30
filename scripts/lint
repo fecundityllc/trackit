@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -e
+echo -e "\e[32mBuilding...\e[0m"
+docker-compose build web > /dev/null
+
+echo -e "\e[32mRunning linters...\e[0m"
+docker-compose run --no-deps --rm web ./scripts/lib/run-linters
+echo -e "\e[32mOK!\e[0m"

@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -e
+DISABLE_ROUTER=1 coverage run ./manage.py test -v 2 --keepdb "${@:1}"
+coverage html
+coverage report

@@ -1,0 +1,28 @@
+version: '3.4'
+
+services:
+
+  web:
+    build:
+      context: .
+      target: prod
+    volumes:
+      - static_volume:/opt/fecundityllc/static
+
+    env_file:
+      ./.env
+
+    container_name: trackit_prod
+    command: ./scripts/lib/run-with-gunicorn 9
+
+  nginx:
+    build: ./nginx
+    ports:
+      - 80:80
+    volumes:
+      - static_volume:/opt/fecundityllc/static
+    depends_on:
+      - web
+
+volumes:
+  static_volume:

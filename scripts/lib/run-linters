@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -e
+
+flake8
+./scripts/lib/run-git-linter
