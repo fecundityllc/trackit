@@ -3,3 +3,6 @@
 !requirements/dev.txt
 !requirements/prod.txt
 !version.py
+!trackit
+!core
+!manage.py
