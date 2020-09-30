@@ -1,2 +1,0 @@
-#!/usr/bin/env bash
-celery -A api_backend.celery worker -l INFO -Q $1 "${@:2}"
