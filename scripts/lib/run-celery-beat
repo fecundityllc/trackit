@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-celery -A api_backend.celery beat \
-	   -l info \
-	   --scheduler django_celery_beat.schedulers:DatabaseScheduler \
-	   --pidfile /tmp/celerybeat.pid
