@@ -16,7 +16,7 @@ services:
     env_file:
       ./.env
 
-    container_name: trackit_prod
+    container_name: trackit_staging
     command: ./scripts/lib/run-with-gunicorn 2
     depends_on:
       - db
