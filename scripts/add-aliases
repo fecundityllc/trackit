@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-cat conf/aliases >> ~/.bash_aliases
-source ~/.bash_aliases
