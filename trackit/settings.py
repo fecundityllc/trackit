@@ -127,19 +127,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# Django Toolbar
-def show_toolbar(request):
-    is_debug = request.GET.get('debug') == 'true'
-    is_toolbar = '__debug__' in request.path
-    if request.user.is_superuser and (is_debug or is_toolbar):
-        return True
-
-
-DEBUG_TOOLBAR_CONFIG = {
-    'INTERCEPT_REDIRECTS': False,
-    'SHOW_TOOLBAR_CALLBACK': 'api_backend.settings.show_toolbar',
-}
-
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.SessionAuthentication',
