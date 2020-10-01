@@ -9,14 +9,10 @@ addons:
     packages:
       - postgresql-9.5
 
-before_script:
-  - psql -U postgres -c "create user read_user with password 'test'"
 
 branches:
   only:
     - "master"
-    - "production"
-    - "staging"
 
 language: python
 python:
@@ -31,16 +27,6 @@ script:
 
 after_success:
   - if [ "$TRAVIS_BRANCH" = "master" ]; then coveralls; fi
-
-deploy:
-  - provider: script
-    script: bash scripts/lib/travis-deploy.sh
-    on:
-      branch: "production"
-  - provider: script
-    script: bash scripts/lib/travis-uat-deploy.sh
-    on:
-      branch: "staging"
 
 notifications:
   email:
