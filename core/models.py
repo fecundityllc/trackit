@@ -12,7 +12,7 @@ class Person(models.Model):
 class IssueDetail(models.Model):
     title = models.CharField(max_length=255)
     issue_url = models.URLField(max_length=500)
-    
+
     def __str__(self):
         issue = self.issue_url.split('/')
         try:
