@@ -25,6 +25,6 @@ class CheckIn(models.Model):
     person = models.ForeignKey(Person, on_delete=models.PROTECT)
     issue = models.ForeignKey(IssueDetail, on_delete=models.PROTECT)
     time_spent = models.FloatField(default=0.0)
-    created_at = models.DateTimeField(auto_now=True)
-    updated_at = models.DateTimeField(null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     description = models.CharField(max_length=100)
