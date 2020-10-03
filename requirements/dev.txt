@@ -7,9 +7,12 @@
 arrow==0.14.2             # via gitlint
 asgiref==3.2.10           # via django
 backcall==0.2.0           # via ipython
+certifi==2020.6.20        # via requests
+chardet==3.0.4            # via requests
 click==7.0                # via gitlint, pip-tools
 coverage==4.5.4           # via -r requirements/dev.in
 decorator==4.4.2          # via ipython
+deprecated==1.2.10        # via pygithub
 django-debug-toolbar==2.2  # via -r requirements/prod.in
 django==3.0.6             # via -r requirements/prod.in, django-debug-toolbar, djangorestframework
 djangorestframework==3.11.0  # via -r requirements/prod.in
@@ -17,6 +20,7 @@ entrypoints==0.3          # via flake8
 flake8-isort==2.7.0       # via -r requirements/dev.in
 flake8==3.7.9             # via -r requirements/dev.in, flake8-isort
 gitlint==0.12.0           # via -r requirements/dev.in
+idna==2.10                # via requests
 ipython-genutils==0.2.0   # via traitlets
 ipython==7.9.0            # via -r requirements/dev.in
 isort==4.3.21             # via flake8-isort
@@ -31,16 +35,22 @@ psycopg2==2.8.5           # via -r requirements/prod.in
 ptyprocess==0.6.0         # via pexpect
 pycodestyle==2.5.0        # via flake8
 pyflakes==2.1.1           # via flake8
+pygithub==1.53            # via -r requirements/dev.in
 pygments==2.7.1           # via ipython
+pyjwt==1.7.1              # via pygithub
 python-dateutil==2.8.1    # via arrow
 pytz==2020.1              # via django
+requests==2.24.0          # via pygithub
 sh==1.12.14               # via gitlint
 six==1.15.0               # via pip-tools, prompt-toolkit, python-dateutil
 sqlparse==0.3.1           # via django, django-debug-toolbar
 testfixtures==6.14.2      # via flake8-isort
 traitlets==5.0.4          # via ipython
+urllib3==1.25.10          # via requests
 wcwidth==0.2.5            # via prompt-toolkit
+wrapt==1.12.1             # via deprecated
 
 # The following packages are considered to be unsafe in a requirements file:
 # pip
 # setuptools
+
