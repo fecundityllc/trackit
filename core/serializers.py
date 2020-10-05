@@ -15,11 +15,13 @@ class PersonSerializer(serializers.ModelSerializer):
 class CheckInSerializer(serializers.HyperlinkedModelSerializer):
     person = serializers.EmailField()
     issue = serializers.URLField()
+    name = serializers.CharField(write_only=True, default="Unknown")
 
     class Meta:
         model = CheckIn
         fields = ["id",
                   "person",
+                  "name",
                   "issue",
                   "created_at",
                   "updated_at",
@@ -28,9 +30,10 @@ class CheckInSerializer(serializers.HyperlinkedModelSerializer):
 
     def create(self, validated_data):
         email = validated_data.pop('person')
-        default = {"name": "Unkwon"}
+        name = validated_data.pop('name')
         person, _ = Person.objects.get_or_create(email=email,
-                                                 defaults=default)
+                                                 defaults={"name": name})
+
         issue = validated_data.pop('issue')
         issue_title = utils.get_issue_title(issue)
         issue, _ = IssueDetail.objects.get_or_create(issue_url=issue,
