@@ -23,7 +23,9 @@ install:
   - if [ "$TRAVIS_BRANCH" = "master" ]; then pip install coveralls; fi
 
 script:
+	- echo $POSTGRES_DB
   - if [ "$TRAVIS_BRANCH" = "master" ]; then ./scripts/lib/run-ci; fi
+  - echo $POSTGRES_DB
 
 after_success:
   - if [ "$TRAVIS_BRANCH" = "master" ]; then coveralls; fi
