@@ -17,7 +17,7 @@ django-debug-toolbar==2.2  # via -r requirements/prod.in
 django==3.0.6             # via -r requirements/prod.in, django-debug-toolbar, djangorestframework
 djangorestframework==3.11.0  # via -r requirements/prod.in
 entrypoints==0.3          # via flake8
-flake8-isort==2.7.0       # via -r requirements/dev.in
+flake8-isort==4.0.0       # via -r requirements/dev.in
 flake8==3.7.9             # via -r requirements/dev.in, flake8-isort
 gitlint==0.12.0           # via -r requirements/dev.in
 idna==2.10                # via requests
@@ -53,4 +53,3 @@ wrapt==1.12.1             # via deprecated
 # The following packages are considered to be unsafe in a requirements file:
 # pip
 # setuptools
-
