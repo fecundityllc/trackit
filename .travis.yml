@@ -34,3 +34,10 @@ notifications:
       - umair@fecundity.io
     on_success: always
     on_failure: always
+
+env:
+  global:
+    - POSTGRES_USER=root
+    - POSTGRES_DB=fecundity
+    - POSTGRES_PASSWORD=password123
+    - POSTGRES_HOST=db
