@@ -18,7 +18,7 @@ class PersonViewSet(viewsets.ModelViewSet):
 
 
 class CheckInViewSet(viewsets.ModelViewSet):
-    queryset = CheckIn.objects.all()
+    queryset = CheckIn.objects.all().order_by('created_at')
     serializer_class = serializers.CheckInSerializer
 
 

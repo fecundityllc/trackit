@@ -13,7 +13,7 @@ backcall==0.2.0           # via ipython
 certifi==2020.6.20        # via requests
 chardet==3.0.4            # via aiohttp, requests
 click==7.0                # via gitlint, pip-tools
-coverage==4.5.4           # via -r requirements/dev.in
+coverage==5.3             # via -r requirements/dev.in
 decorator==4.4.2          # via ipython
 deprecated==1.2.10        # via pygithub
 django-debug-toolbar==2.2  # via -r requirements/prod.in
@@ -42,7 +42,7 @@ pyflakes==2.1.1           # via flake8
 pygithub==1.53            # via -r requirements/dev.in
 pygments==2.7.1           # via ipython
 pyjwt==1.7.1              # via pygithub
-python-dateutil==2.8.1    # via arrow
+python-dateutil==2.8.1    # via -r requirements/dev.in, arrow
 pytz==2020.1              # via django
 requests==2.24.0          # via pygithub
 sh==1.12.14               # via gitlint
