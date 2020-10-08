@@ -41,3 +41,4 @@ env:
     - POSTGRES_DB=fecundity
     - POSTGRES_PASSWORD=password123
     - POSTGRES_HOST=db
+    - POSTGRES_TEST_DB=fecundity_test
