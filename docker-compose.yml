@@ -3,11 +3,8 @@ version: '3.4'
 services:
   db:
     image: postgres:9.5
-    environment:
-      POSTGRES_USER: root
-      POSTGRES_DB: fecundity
-      POSTGRES_PASSWORD: password123
-      POSTGRES_HOST:db
+    env_file:
+      ./.env.dev
 
   web:
     build:

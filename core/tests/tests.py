@@ -8,10 +8,22 @@ from core.utils import get_issue_title
 
 
 class TrackitTestCases(TestCase):
+    def setUp(self):
+        self.person = Person.objects.create(
+            name="someone", email="someone@example.io")
+
+        url = "https://github.com/fecundityllc/trackit/issues/12"
+        self.issue = IssueDetail.objects.create(
+            title=get_issue_title(url), issue_url=url)
+        self.checkin = CheckIn.objects.create(
+            issue=self.issue,
+            person=self.person,
+            time_spent=2.4,
+            description="I did this.")
     payload = {
         "person": {
-            "name": "mohsan",
-            "email": "mohsan@fecundity.io"
+            "name": "someone",
+            "email": "someone@fecundity.io"
         },
         "issue": {
             "issue_url": "https://github.com/fecundityllc/trackit/issues/12"
@@ -25,60 +37,26 @@ class TrackitTestCases(TestCase):
         }
     }
 
-    def create_person(self):
-        person, _ = Person.objects.get_or_create(
-            name="Alex", email="alex@somewhere.com")
-        return person
-
-    def create_issue(self):
-        url = "https://github.com/fecundityllc/trackit/issues/12"
-        issue = {
-            "issue_url": url,
-            "title": get_issue_title(url)
-        }
-        issue, _ = IssueDetail.objects.get_or_create(**issue)
-        return issue
-
-    def create_checkin(self):
-        data = {
-            "person": self.create_person(),
-            "issue": self.create_issue(),
-            "time_spent": 2.4,
-            "description": 'I did this'
-        }
-        checkin, _ = CheckIn.objects.get_or_create(**data)
-        return checkin
-
     def test_checkin_count(self):
-        self.create_checkin()
         self.assertEqual(len(CheckIn.objects.all()), 1)
 
     def test_checkin_data(self):
-        person = self.create_person()
-        issue = self.create_issue()
-        checkin = self.create_checkin()
-        self.assertEqual(checkin.person, person)
-        self.assertEqual(checkin.issue, issue)
+        self.assertEqual(self.checkin.person, self.person)
+        self.assertEqual(self.checkin.issue, self.issue)
         self.assertEqual(timezone.localdate(
-            checkin.created_at), timezone.now().date())
+            self.checkin.created_at), timezone.now().date())
 
     def test_person_deletion_checkin(self):
-        person = self.create_person()
-        self.create_checkin()
-        self.assertRaises(ProtectedError, person.delete)
+        self.assertRaises(ProtectedError, self.person.delete)
 
     def test_issue_deletion_checkin(self):
-        issue = self.create_issue()
-        self.create_checkin()
-        self.assertRaises(ProtectedError, issue.delete)
+        self.assertRaises(ProtectedError, self.issue.delete)
 
     def test_person_repr(self):
-        person = self.create_person()
-        self.assertEqual(str(person), person.email)
+        self.assertEqual(str(self.person), self.person.email)
 
     def test_issue_repr(self):
-        issue = self.create_issue()
-        self.assertEqual(str(issue), "trackit #12")
+        self.assertEqual(str(self.issue), "trackit #12")
 
     def test_checkin_api(self):
         response = self.client.post(
@@ -102,17 +80,12 @@ class TrackitTestCases(TestCase):
                          checkin_data['time_spent'])
 
     def test_checkin_get(self):
-        response = self.client.post(
-            "/checkin/", data=self.payload.get('checkin'))
-        self.assertEqual(response.status_code, 201)
-
         response = self.client.get('/checkin/')
         self.assertEqual(response.status_code, 200)
         data = response.data['results'][0]
-        person = Person.objects.get(email=data['person'])
-        self.assertEqual(data['person'], str(person))
+        self.assertEqual(data['person'], str(self.person))
         self.assertEqual(data['time_spent'],
-                         self.payload["checkin"]["time_spent"])
+                         self.checkin.time_spent)
         date = parser.parse(data['created_at'])
         self.assertEqual(date.date(), timezone.now().date())
 
