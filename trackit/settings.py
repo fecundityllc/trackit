@@ -87,7 +87,7 @@ DATABASES = {
         'HOST': os.environ['POSTGRES_HOST'],
         'PORT': '',
         'ATOMIC_REQUESTS': True,
-        'TEST':{
+        'TEST': {
             'NAME': os.environ['POSTGRES_TEST_DB']
         }
     },
@@ -135,6 +135,6 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.TokenAuthentication',
     ],
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination', # noqa
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',  # noqa
     'PAGE_SIZE': 10,
 }
