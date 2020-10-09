@@ -8,7 +8,7 @@ RUN apt update && apt install -y \
 ENV PYTHONUNBUFFERED 1
 ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
-RUN pip install pip==20.1.1
+RUN pip install pip==20.2.3
 
 WORKDIR /opt/fecundityllc
 

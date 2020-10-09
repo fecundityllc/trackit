@@ -2,14 +2,15 @@ dist: bionic
 
 services:
   - postgresql
- 
+
+before_script:
+  - psql -c "CREATE DATABASE $POSTGRES_TEST_DB;" -U postgres
+
 addons:
-  postgresql: '9.5'
+  postgresql: '11'
   apt:
     packages:
-      - postgresql-9.5
-
-
+      - postgresql-11
 branches:
   only:
     - "master"
@@ -31,7 +32,7 @@ after_success:
 notifications:
   email:
     recipients:
-      - umair@fecundity.io
+      - mohsan@fecundity.io
     on_success: always
     on_failure: always
 
@@ -41,3 +42,5 @@ env:
     - POSTGRES_DB=fecundity
     - POSTGRES_PASSWORD=password123
     - POSTGRES_HOST=db
+    - POSTGRES_TEST_DB=fecundity_test
+    - PGPORT=5432

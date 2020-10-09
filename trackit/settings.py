@@ -25,7 +25,7 @@ SECRET_KEY = '$)!(d%+x3(83$#dn-e7#w2=0&uk-xa5o-rsz_!_!v#h66gu68k'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost']
+ALLOWED_HOSTS = ["localhost"]
 
 
 # Application definition
@@ -87,6 +87,10 @@ DATABASES = {
         'HOST': os.environ['POSTGRES_HOST'],
         'PORT': '',
         'ATOMIC_REQUESTS': True,
+        'TEST': {
+            'NAME': os.environ['POSTGRES_TEST_DB'],
+            'PORT': os.environ['PGPORT']
+        }
     },
 }
 
@@ -132,6 +136,6 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.TokenAuthentication',
     ],
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination', # noqa
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',  # noqa
     'PAGE_SIZE': 10,
 }
