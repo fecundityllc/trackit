@@ -9,6 +9,8 @@ addons:
     packages:
       - postgresql-9.5
 
+before_script:
+  - psql -c 'create database fecundity_test;' -U postgres
 
 branches:
   only:
@@ -31,7 +33,7 @@ after_success:
 notifications:
   email:
     recipients:
-      - umair@fecundity.io
+      - mohsan@fecundity.io
     on_success: always
     on_failure: always
 
