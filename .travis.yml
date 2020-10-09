@@ -11,8 +11,6 @@ addons:
     packages:
       - postgresql-11
 
-
-
 branches:
   only:
     - "master"
@@ -45,3 +43,4 @@ env:
     - POSTGRES_PASSWORD=password123
     - POSTGRES_HOST=db
     - POSTGRES_TEST_DB=fecundity_test
+    - PGPORT=5433
