@@ -4,7 +4,8 @@ services:
   - postgresql
 
 before_script:
-  - psql -c 'create database fecundity_test;' -U root 
+  - psql -U postgres -c "create user test with password 'test'"
+  - psql -c 'create database fecundity_test;' -U test 
 
 addons:
   postgresql: '9.5'
