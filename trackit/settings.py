@@ -89,6 +89,7 @@ DATABASES = {
         'ATOMIC_REQUESTS': True,
         'TEST': {
             'NAME': os.environ['POSTGRES_TEST_DB'],
+            'PORT': os.environ['PGPORT']
         }
     },
 }
