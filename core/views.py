@@ -35,11 +35,11 @@ def StoreCheckinDetails(request):
         thread.start()
     except Exception:
         HttpResponse(
-            "Error: unable to process your request ", 
+            "Error: unable to process your request ",
             status.HTTP_200_OK
         )
     return HttpResponse(
-        "Got your command. Let me process", 
+        "Got your command. Let me process",
         status.HTTP_200_OK
     )
 
@@ -47,12 +47,12 @@ def StoreCheckinDetails(request):
 def process_request(response_url, request):
     response, checkin_details = get_checkin_details(request)
     if response.status_code == status.HTTP_400_BAD_REQUEST:
-        requests.post(response_url, data=json.dumps({"text":response.data}))
+        requests.post(response_url, data=json.dumps({"text": response.data}))
     else:
         try:
-            payload = dict(checkin_details)   
+            payload = dict(checkin_details)
             response = requests.post(
-                str(os.environ.get('DOMAIN')) + '/checkin/', 
+                str(os.environ.get('DOMAIN')) + '/checkin/',
                 data=payload
             )
             data = dict()
@@ -64,5 +64,5 @@ def process_request(response_url, request):
             requests.post(response_url, data=json.dumps(data))
         except Exception:
             requests.post(
-                response_url, 
+                response_url,
                 data="{'text': 'Unable to proccess your command'}")

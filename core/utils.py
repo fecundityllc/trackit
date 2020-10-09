@@ -66,7 +66,7 @@ def params_validation(params):
         return Response(
             "Error: Please provide short description \
             (less than 200 characters)", status=status.HTTP_400_BAD_REQUEST)
-    if params[1].isdigit() == False:
+    if params[1].isdigit() is False:
         return Response(
             "Error: Please provide valid number of hours",
             status=status.HTTP_400_BAD_REQUEST)
