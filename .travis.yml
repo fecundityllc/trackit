@@ -4,7 +4,7 @@ services:
   - postgresql
 
 before_script:
-  - psql -c "CREATE DATABASE $POSTGRES_DB;" -U root
+  - psql -c "CREATE DATABASE $POSTGRES_DB;" -U postgres
 
 addons:
   postgresql: '11'
