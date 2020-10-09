@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
   db:
-    image: postgres:9.5
+    image: postgres:11
     env_file:
       ./.env.dev
 
