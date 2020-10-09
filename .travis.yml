@@ -43,4 +43,4 @@ env:
     - POSTGRES_PASSWORD=password123
     - POSTGRES_HOST=db
     - POSTGRES_TEST_DB=fecundity_test
-    - PGPORT=5433
+    - PGPORT=5432
