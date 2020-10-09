@@ -87,6 +87,9 @@ DATABASES = {
         'HOST': os.environ['POSTGRES_HOST'],
         'PORT': '',
         'ATOMIC_REQUESTS': True,
+        'TEST': {
+            'NAME': os.environ['POSTGRES_TEST_DB'],
+        }
     },
 }
 
