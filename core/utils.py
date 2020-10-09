@@ -16,10 +16,10 @@ def get_issue_title(url):
     return issue.title
 
 
-def get_email_from_slack_response(request):
+def get_user_info_from_slack_response(request):
     client = WebClient(token=os.environ["SLACK_BOT_TOKEN"])
     response = client.users_info(user=request.POST['user_id'])
-    return response['user']['profile']['email']
+    return response['user']['real_name'], response['user']['profile']['email']
 
 
 def get_checkin_details(request):
@@ -32,6 +32,13 @@ def get_checkin_details(request):
         return Response(
             "Error: Please provide slack bot token",
             status=status.HTTP_404_NOT_FOUND), checkin_details
+    try:
+        checkin_details['name'], checkin_details['person'] = \
+            get_user_info_from_slack_response(request)
+    except Exception:
+        return Response(
+            "Error: Unable to get user info",
+            status=status.HTTP_400_BAD_REQUEST)
     checkin_details['issue'] = params[0]
     checkin_details['time_spent'] = params[1]
     checkin_details['description'] = params[2]
@@ -59,4 +66,25 @@ def params_validation(params):
         return Response(
             "Error: Please provide short description \
             (less than 200 characters)", status=status.HTTP_400_BAD_REQUEST)
+    if params[1].isdigit() == False:
+        return Response(
+            "Error: Please provide valid number of hours",
+            status=status.HTTP_400_BAD_REQUEST)
+    response = is_issue_url_valid(params[0])
+    if response.status_code == status.HTTP_400_BAD_REQUEST:
+        return response
     return Response("Parameters are fine", status=status.HTTP_200_OK)
+
+
+def is_issue_url_valid(url):
+    if os.getenv('GITHUB') is None:
+        return Response(
+            "Error: Please provide Github authorization token",
+            status=status.HTTP_404_NOT_FOUND)
+    try:
+        get_issue_title(url)
+        return Response("Issue URL is fine", status=status.HTTP_200_OK)
+    except Exception:
+        return Response(
+            "Error: Please provide valid URL of the issue",
+            status=status.HTTP_400_BAD_REQUEST)
