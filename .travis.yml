@@ -2,15 +2,17 @@ dist: bionic
 
 services:
   - postgresql
- 
+
+before_script:
+  - psql -c 'create database fecundity_test;' -U root 
+
 addons:
   postgresql: '9.5'
   apt:
     packages:
       - postgresql-9.5
 
-before_script:
-  - psql -c 'create database fecundity_test;' -U postgres
+
 
 branches:
   only:
@@ -40,7 +42,6 @@ notifications:
 env:
   global:
     - POSTGRES_USER=root
-    - POSTGRES_DB=fecundity
     - POSTGRES_PASSWORD=password123
     - POSTGRES_HOST=db
     - POSTGRES_TEST_DB=fecundity_test
