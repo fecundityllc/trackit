@@ -6,13 +6,6 @@ then
     COMPOSE_FILE=docker-compose.prod.yml
 fi
 
-git checkout production
-git fetch origin
-git rebase origin/master
-
-./scripts/lib/git-crypt unlock unation-api-sym-key
-cp .env.prod .env
-
 docker-compose -f $COMPOSE_FILE build
 docker-compose -f $COMPOSE_FILE up -d --remove-orphans
 

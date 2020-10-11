@@ -1,11 +1,15 @@
 version: '3.4'
 
 services:
+  db:
+    image: postgres:9.5
+    env_file:
+      ./.env
 
   web:
     build:
       context: .
-      target: prod
+      target: dev
     volumes:
       - static_volume:/opt/fecundityllc/static
 

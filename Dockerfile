@@ -13,6 +13,7 @@ RUN pip install pip==20.1.1
 WORKDIR /opt/fecundityllc
 
 COPY requirements/dev.txt requirements/dev.txt
+COPY requirements/prod.txt requirements/prod.txt
 RUN pip install -r requirements/dev.txt
 
 COPY . ./
