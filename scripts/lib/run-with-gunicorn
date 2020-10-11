@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+gunicorn trackit.wsgi:application --bind 0.0.0.0:8000

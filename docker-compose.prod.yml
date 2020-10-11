@@ -13,7 +13,7 @@ services:
       ./.env
 
     container_name: trackit_prod
-    command: ./scripts/lib/run-with-gunicorn 9
+    command: ./scripts/lib/run-with-gunicorn
 
   nginx:
     build: ./nginx
